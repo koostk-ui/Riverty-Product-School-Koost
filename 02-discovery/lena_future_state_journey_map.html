@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lena's future-state journey with the Riverty card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F5F7F8;
+  --ink:#151A24;
+  --muted:#535B69;
+  --rule:#C9CFD6;
+  --keep:#0B7A62;
+  --keep-tint:#E2F2EC;
+  --pain:#9A4A06;
+  --pain-tint:#FBEBD6;
+  --panel:#FFFFFF;
+  --slate:#E8ECEF;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#10141B;
+    --ink:#EDF0F3;
+    --muted:#A3ABB8;
+    --rule:#2F3744;
+    --keep:#4FC3A5;
+    --keep-tint:#143229;
+    --pain:#F0B070;
+    --pain-tint:#3A2713;
+    --panel:#171C25;
+    --slate:#1E2430;
+  }
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{
+  margin:0;
+  font-family:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+  line-height:1.5;
+  font-size:15px;
+  padding:clamp(20px,4vw,48px);
+}
+.page{max-width:1240px;margin:0 auto}
+header{max-width:760px;margin-bottom:28px}
+h1{font-size:clamp(26px,3.4vw,38px);line-height:1.12;font-weight:600;margin:0 0 12px;letter-spacing:-0.01em}
+.lede{margin:0;color:var(--muted);font-size:16px;max-width:68ch}
+.lede strong{color:var(--ink);font-weight:500}
+
+.feel{display:none;margin:0 0 4px}
+.feel svg{width:100%;height:auto;display:block}
+.feel-cap{font-size:13px;color:var(--muted);margin:0 0 2px}
+
+.stages{
+  list-style:none;margin:0;padding:0;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
+}
+.stage{display:flex;flex-direction:column;gap:14px}
+.stage-head{display:flex;align-items:center;gap:12px}
+.node{
+  flex:none;width:30px;height:30px;border-radius:50%;
+  background:var(--keep);color:#fff;
+  display:grid;place-items:center;font-weight:600;font-size:14px;
+}
+@media (prefers-color-scheme: dark){.node{color:#0B1A15}}
+.stage-head::after{content:"";flex:1;height:2px;background:var(--keep);opacity:.45}
+.stage:last-child .stage-head::after{display:none}
+.stage h2{font-size:20px;line-height:1.2;font-weight:600;margin:0}
+
+.block{margin:0}
+.block h3{font-size:13px;font-weight:500;color:var(--muted);margin:0 0 4px}
+.block p{margin:0}
+.ab .a{display:block}
+.ab .b{display:block;color:var(--keep);font-weight:500;margin-top:2px}
+.ab .b::before{content:"\2192\00a0"}
+.state{font-style:italic}
+.pips{display:flex;gap:4px;margin-top:8px}
+.pips i{width:22px;height:5px;background:var(--rule);display:block}
+.pips i.on{background:var(--keep)}
+
+.pain{background:var(--pain-tint);padding:12px 14px}
+.pain h3{color:var(--pain)}
+.pain .b{color:var(--ink)}
+.pain .ab .b::before{color:var(--pain)}
+
+.extra{border-top:1px solid var(--rule);padding-top:10px}
+
+.guardrail{
+  margin:32px 0 0;padding:18px 22px;
+  background:var(--slate);
+  border:1px dashed var(--muted);
+}
+.guardrail h2{font-size:16px;font-weight:600;margin:0 0 4px}
+.guardrail p{margin:0;max-width:92ch}
+
+.adv{margin-top:32px}
+.adv h2{font-size:18px;font-weight:600;margin:0 0 12px}
+.adv ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.adv li{border-top:2px solid var(--keep);padding-top:12px}
+.adv h3{font-size:15px;font-weight:600;margin:0 0 4px}
+
+footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--rule);color:var(--muted);font-size:13px}
+footer ul{margin:6px 0 0;padding-left:18px}
+footer li{margin-bottom:3px}
+
+@media (min-width:1000px){.feel{display:block}}
+@media (max-width:999px){
+  .stages{grid-template-columns:1fr;gap:28px}
+  .stage-head::after{display:none}
+  .adv ol{grid-template-columns:1fr}
+}
+@media (min-width:600px) and (max-width:999px){
+  .stages{grid-template-columns:1fr 1fr}
+}
+@media print{
+  @page{size:A4 landscape;margin:10mm}
+  html,body{background:#fff}
+  body{padding:0;font-size:11px;color:#151A24}
+  :root{--bg:#fff;--ink:#151A24;--muted:#535B69;--rule:#C9CFD6;--keep:#0B7A62;--pain:#9A4A06;--pain-tint:#FBEBD6;--slate:#E8ECEF}
+  h1{font-size:22px}
+  .lede{font-size:12px}
+  .stages{grid-template-columns:repeat(4,1fr);gap:14px}
+  .adv ol{grid-template-columns:repeat(3,1fr);gap:14px}
+  .feel{display:block}
+  .guardrail,.adv,footer{margin-top:14px}
+  .stage,.pain,.guardrail,.adv li{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <h1>Lena's future-state journey with the Riverty card</h1>
+  <p class="lede"><strong>Lena, 32, Cologne.</strong> She wants to pay only after she has decided to keep an item, wherever she buys it. This map shows four stages once Riverty's first card carries that habit beyond partner checkouts, while keeping Riverty the default at partner merchants.</p>
+</header>
+
+<section aria-labelledby="feel-cap" class="feel">
+  <p class="feel-cap" id="feel-cap">How Lena feels, stage by stage</p>
+  <svg viewBox="0 0 1200 110" role="img" aria-label="Line rising from curious and wary at stage 1 to trusting at stage 4">
+    <polyline points="150,88 450,66 750,46 1050,26" fill="none" stroke="var(--keep)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="150" cy="88" r="9" fill="var(--keep)"/>
+    <circle cx="450" cy="66" r="9" fill="var(--keep)"/>
+    <circle cx="750" cy="46" r="9" fill="var(--keep)"/>
+    <circle cx="1050" cy="26" r="9" fill="var(--keep)"/>
+  </svg>
+</section>
+
+<ol class="stages">
+
+  <li class="stage">
+    <div class="stage-head"><span class="node">1</span><h2>Activate the card</h2></div>
+    <div class="block ab">
+      <h3>User action</h3>
+      <p><span class="a">Adds card to phone wallet</span><span class="b">carries Riverty beyond partner checkouts.</span></p>
+    </div>
+    <div class="block">
+      <h3>Internal state</h3>
+      <p class="state">Curious but cautious, wary of "debt with a nicer name."</p>
+      <div class="pips" aria-label="Confidence 1 of 4"><i class="on"></i><i></i><i></i><i></i></div>
+    </div>
+    <div class="block pain ab">
+      <h3>Pain point addressed</h3>
+      <p><span class="a">Riverty rarely sought out</span><span class="b">becomes a card she carries and chooses.</span></p>
+    </div>
+  </li>
+
+  <li class="stage">
+    <div class="stage-head"><span class="node">2</span><h2>Pay anywhere</h2></div>
+    <div class="block ab">
+      <h3>User action</h3>
+      <p><span class="a">Taps phone at the till or any non-partner shop</span><span class="b">no money leaves her account yet.</span></p>
+    </div>
+    <div class="block">
+      <h3>Internal state</h3>
+      <p class="state">Relieved and in control, with no scramble for a fallback card.</p>
+      <div class="pips" aria-label="Confidence 2 of 4"><i class="on"></i><i class="on"></i><i></i><i></i></div>
+    </div>
+    <div class="block pain ab">
+      <h3>Pain point addressed</h3>
+      <p><span class="a">Debit card used at the till</span><span class="b">pay-after control survives outside partner checkouts.</span></p>
+    </div>
+  </li>
+
+  <li class="stage">
+    <div class="stage-head"><span class="node">3</span><h2>Decide</h2></div>
+    <div class="block ab">
+      <h3>User action</h3>
+      <p><span class="a">Opens one view of dues and return deadlines</span><span class="b">decides keep or return calmly.</span></p>
+    </div>
+    <div class="block">
+      <h3>Internal state</h3>
+      <p class="state">Calm and confident, with no deadline anxiety.</p>
+      <div class="pips" aria-label="Confidence 3 of 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+    </div>
+    <div class="block pain ab">
+      <h3>Pain point addressed</h3>
+      <p><span class="a">Return windows tracked by hand</span><span class="b">countdown and dues visible in one place.</span></p>
+    </div>
+  </li>
+
+  <li class="stage">
+    <div class="stage-head"><span class="node">4</span><h2>Settle up</h2></div>
+    <div class="block ab">
+      <h3>User action</h3>
+      <p><span class="a">Pays only for kept items; sees refunds reflected</span><span class="b">never wonders what she owes.</span></p>
+    </div>
+    <div class="block">
+      <h3>Internal state</h3>
+      <p class="state">Trusting. Riverty feels like hers, not just a checkout button.</p>
+      <div class="pips" aria-label="Confidence 4 of 4"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+    </div>
+    <div class="block pain ab">
+      <h3>Pain point addressed</h3>
+      <p><span class="a">Doubt about what is owed after a return</span><span class="b">clear refund and balance status.</span></p>
+    </div>
+    <div class="block extra ab">
+      <h3>Merchant guardrail</h3>
+      <p><span class="a">Offers route spend to partner merchants</span><span class="b">merchants gain from the card.</span></p>
+    </div>
+  </li>
+
+</ol>
+
+<section class="guardrail" aria-labelledby="g-h">
+  <h2 id="g-h">Merchant-first guardrail</h2>
+  <p>Riverty stays the default at partner checkouts, and card spend is routed toward partner merchants. If the card ever pulls customers away from them, it is stopped. The merchant benefit is still a hypothesis, so it is the first thing to test with real merchants.</p>
+</section>
+
+<section class="adv" aria-labelledby="adv-h">
+  <h2 id="adv-h">Three advantages over the manual workaround</h2>
+  <ol>
+    <li>
+      <h3>Control everywhere</h3>
+      <p class="ab"><span class="a">Pays later in stores and online</span><span class="b">no upfront debit charge, no return-window guesswork.</span></p>
+    </li>
+    <li>
+      <h3>Clarity without spreadsheets</h3>
+      <p class="ab"><span class="a">One view replaces receipt dates and Excel sheets</span><span class="b">fewer missed payments on Riverty dues.</span></p>
+    </li>
+    <li>
+      <h3>A relationship Riverty owns</h3>
+      <p class="ab"><span class="a">She carries and chooses the card</span><span class="b">habit builds on Riverty, with spend routed to partners.</span></p>
+    </li>
+  </ol>
+</section>
+
+<footer>
+  <strong>Read before presenting</strong>
+  <ul>
+    <li>Built from AI-generated interviews and a brief that names Lena. Every stage is a hypothesis to test with real Riverty users.</li>
+    <li>The one view covers the Riverty card only, not Klarna or PayPal balances.</li>
+    <li>The brief does not say Riverty holds a banking licence. It says Riverty holds a Mastercard principal membership, with Paymentology as issuer processor.</li>
+    <li>Verify the PayPal in-store and Amazon.de claims, Klarna's card model and the 20 November 2026 consumer credit date before using them.</li>
+  </ul>
+</footer>
+
+</div>
+</body>
+</html>
