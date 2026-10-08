@@ -1,264 +1,276 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lena's future-state journey with the Riverty card</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<title>Lena's future state with the Riverty card</title>
 <style>
-:root{
-  --bg:#F5F7F8;
-  --ink:#151A24;
-  --muted:#535B69;
-  --rule:#C9CFD6;
-  --keep:#0B7A62;
-  --keep-tint:#E2F2EC;
-  --pain:#9A4A06;
-  --pain-tint:#FBEBD6;
-  --panel:#FFFFFF;
-  --slate:#E8ECEF;
-}
-@media (prefers-color-scheme: dark){
-  :root{
-    --bg:#10141B;
-    --ink:#EDF0F3;
-    --muted:#A3ABB8;
-    --rule:#2F3744;
-    --keep:#4FC3A5;
-    --keep-tint:#143229;
-    --pain:#F0B070;
-    --pain-tint:#3A2713;
-    --panel:#171C25;
-    --slate:#1E2430;
+  :root {
+    --bg: #F2F1EE;
+    --ink: #262626;
+    --muted: #66665F;
+    --line: #D6D4CE;
+    --green: #4A7A3C;
+    --green-soft: #E3EBDD;
+    --pain: #9A4630;
+    --pain-soft: #F1E2DC;
+    --panel: #FBFAF8;
   }
-}
-*{box-sizing:border-box}
-html{background:var(--bg)}
-body{
-  margin:0;
-  font-family:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  color:var(--ink);
-  background:var(--bg);
-  line-height:1.5;
-  font-size:15px;
-  padding:clamp(20px,4vw,48px);
-}
-.page{max-width:1240px;margin:0 auto}
-header{max-width:760px;margin-bottom:28px}
-h1{font-size:clamp(26px,3.4vw,38px);line-height:1.12;font-weight:600;margin:0 0 12px;letter-spacing:-0.01em}
-.lede{margin:0;color:var(--muted);font-size:16px;max-width:68ch}
-.lede strong{color:var(--ink);font-weight:500}
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    padding: 40px 32px 48px;
+    color: var(--ink);
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .page { max-width: 1160px; margin: 0 auto; }
+  header { margin-bottom: 28px; max-width: 760px; }
+  h1 {
+    margin: 0 0 10px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .strategy { margin: 0 0 14px; color: var(--muted); font-size: 16px; }
+  .persona {
+    margin: 0;
+    padding-left: 12px;
+    border-left: 3px solid var(--green);
+    font-size: 14px;
+  }
+  .persona b { font-weight: 600; }
 
-.feel{display:none;margin:0 0 4px}
-.feel svg{width:100%;height:auto;display:block}
-.feel-cap{font-size:13px;color:var(--muted);margin:0 0 2px}
+  .journey {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .curve-wrap {
+    position: relative;
+    height: 150px;
+    margin: 0 0 4px;
+    border-bottom: 1px solid var(--line);
+  }
+  .curve-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .curve-title {
+    position: absolute; top: 10px; left: 16px;
+    font-size: 12.5px; color: var(--muted);
+  }
+  .dot {
+    position: absolute;
+    width: 14px; height: 14px;
+    margin: -7px 0 0 -7px;
+    border-radius: 50%;
+    background: var(--green);
+    border: 3px solid var(--panel);
+    box-shadow: 0 0 0 1px var(--green);
+  }
+  .mood {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--green);
+    white-space: nowrap;
+  }
 
-.stages{
-  list-style:none;margin:0;padding:0;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:28px;
-}
-.stage{display:flex;flex-direction:column;gap:14px}
-.stage-head{display:flex;align-items:center;gap:12px}
-.node{
-  flex:none;width:30px;height:30px;border-radius:50%;
-  background:var(--keep);color:#fff;
-  display:grid;place-items:center;font-weight:600;font-size:14px;
-}
-@media (prefers-color-scheme: dark){.node{color:#0B1A15}}
-.stage-head::after{content:"";flex:1;height:2px;background:var(--keep);opacity:.45}
-.stage:last-child .stage-head::after{display:none}
-.stage h2{font-size:20px;line-height:1.2;font-weight:600;margin:0}
+  .stages { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stage { padding: 20px 20px 24px; }
+  .stage + .stage { border-left: 1px solid var(--line); }
+  .stage h2 {
+    margin: 0 0 16px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.2;
+  }
+  .stage h2 span {
+    display: inline-block;
+    width: 26px; height: 26px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: center;
+    vertical-align: 2px;
+  }
+  .row { margin: 0 0 16px; }
+  .row:last-child { margin-bottom: 0; }
+  .label { margin: 0 0 3px; font-size: 12.5px; color: var(--muted); }
+  .row p { margin: 0; }
+  .row .to { color: var(--green); font-weight: 600; padding: 0 2px; }
+  .row.pain {
+    padding: 10px 12px;
+    background: var(--pain-soft);
+    border-radius: 6px;
+  }
+  .row.pain .label { color: var(--pain); }
+  .row.pain .to { color: var(--pain); }
 
-.block{margin:0}
-.block h3{font-size:13px;font-weight:500;color:var(--muted);margin:0 0 4px}
-.block p{margin:0}
-.ab .a{display:block}
-.ab .b{display:block;color:var(--keep);font-weight:500;margin-top:2px}
-.ab .b::before{content:"\2192\00a0"}
-.state{font-style:italic}
-.pips{display:flex;gap:4px;margin-top:8px}
-.pips i{width:22px;height:5px;background:var(--rule);display:block}
-.pips i.on{background:var(--keep)}
+  .edge { margin-top: 28px; }
+  .edge h3 {
+    margin: 0 0 12px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 22px;
+  }
+  .adv { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .adv div {
+    padding: 14px 16px;
+    background: var(--green-soft);
+    border-radius: 8px;
+  }
+  .adv b { display: block; margin-bottom: 4px; font-weight: 600; }
+  .adv span { font-size: 14px; }
 
-.pain{background:var(--pain-tint);padding:12px 14px}
-.pain h3{color:var(--pain)}
-.pain .b{color:var(--ink)}
-.pain .ab .b::before{color:var(--pain)}
+  .notes {
+    margin: 24px 0 0;
+    max-width: 860px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .notes p { margin: 0 0 6px; }
 
-.extra{border-top:1px solid var(--rule);padding-top:10px}
-
-.guardrail{
-  margin:32px 0 0;padding:18px 22px;
-  background:var(--slate);
-  border:1px dashed var(--muted);
-}
-.guardrail h2{font-size:16px;font-weight:600;margin:0 0 4px}
-.guardrail p{margin:0;max-width:92ch}
-
-.adv{margin-top:32px}
-.adv h2{font-size:18px;font-weight:600;margin:0 0 12px}
-.adv ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.adv li{border-top:2px solid var(--keep);padding-top:12px}
-.adv h3{font-size:15px;font-weight:600;margin:0 0 4px}
-
-footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--rule);color:var(--muted);font-size:13px}
-footer ul{margin:6px 0 0;padding-left:18px}
-footer li{margin-bottom:3px}
-
-@media (min-width:1000px){.feel{display:block}}
-@media (max-width:999px){
-  .stages{grid-template-columns:1fr;gap:28px}
-  .stage-head::after{display:none}
-  .adv ol{grid-template-columns:1fr}
-}
-@media (min-width:600px) and (max-width:999px){
-  .stages{grid-template-columns:1fr 1fr}
-}
-@media print{
-  @page{size:A4 landscape;margin:10mm}
-  html,body{background:#fff}
-  body{padding:0;font-size:11px;color:#151A24}
-  :root{--bg:#fff;--ink:#151A24;--muted:#535B69;--rule:#C9CFD6;--keep:#0B7A62;--pain:#9A4A06;--pain-tint:#FBEBD6;--slate:#E8ECEF}
-  h1{font-size:22px}
-  .lede{font-size:12px}
-  .stages{grid-template-columns:repeat(4,1fr);gap:14px}
-  .adv ol{grid-template-columns:repeat(3,1fr);gap:14px}
-  .feel{display:block}
-  .guardrail,.adv,footer{margin-top:14px}
-  .stage,.pain,.guardrail,.adv li{break-inside:avoid}
-}
+  @media (max-width: 860px) {
+    body { padding: 24px 16px 32px; }
+    h1 { font-size: 28px; }
+    .curve-wrap { display: none; }
+    .stages { grid-template-columns: 1fr; }
+    .stage + .stage { border-left: 0; border-top: 1px solid var(--line); }
+    .adv { grid-template-columns: 1fr; }
+  }
+  @media print {
+    @page { size: A4 landscape; margin: 9mm; }
+    html, body { background: #fff; }
+    body { padding: 0; font-size: 11px; }
+    h1 { font-size: 24px; }
+    .stage h2 { font-size: 16px; }
+    .stage { padding: 12px 12px 14px; }
+    .curve-wrap { height: 110px; }
+    .row { margin-bottom: 10px; }
+    .edge { margin-top: 14px; }
+    .edge h3 { font-size: 16px; margin-bottom: 8px; }
+    .adv div { padding: 8px 10px; }
+    .notes { margin-top: 12px; font-size: 10px; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
 </style>
 </head>
 <body>
 <div class="page">
+  <header>
+    <h1>Lena's future state with the Riverty card</h1>
+    <p class="strategy">Strategy: make Riverty the trusted card heavy BNPL users carry every day, by handling returns and spending control better than anyone, without competing with our merchants.</p>
+    <p class="persona"><b>Lena, the Decide-First Juggler.</b> A salaried, phone-first online shopper who wants to receive and inspect what she bought before money leaves her account, and to see what she owes and when.</p>
+  </header>
 
-<header>
-  <h1>Lena's future-state journey with the Riverty card</h1>
-  <p class="lede"><strong>Lena, 32, Cologne.</strong> She wants to pay only after she has decided to keep an item, wherever she buys it. This map shows four stages once Riverty's first card carries that habit beyond partner checkouts, while keeping Riverty the default at partner merchants.</p>
-</header>
+  <section class="journey" aria-label="Four-stage future-state journey">
+    <div class="curve-wrap" role="img" aria-label="Lena's mood rises from cautious to relaxed, in control, then calm across the four stages">
+      <span class="curve-title">How Lena feels</span>
+      <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M12.5 78 C 25 78, 25 56, 37.5 56 S 50 40, 62.5 40 S 75 26, 87.5 26"
+              fill="none" stroke="#4A7A3C" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round"/>
+      </svg>
+      <span class="dot" style="left:12.5%; top:78%"></span>
+      <span class="dot" style="left:37.5%; top:56%"></span>
+      <span class="dot" style="left:62.5%; top:40%"></span>
+      <span class="dot" style="left:87.5%; top:26%"></span>
+      <span class="mood" style="left:12.5%; top:calc(78% + 14px)">Cautious</span>
+      <span class="mood" style="left:37.5%; top:calc(56% + 14px)">Relaxed</span>
+      <span class="mood" style="left:62.5%; top:calc(40% + 14px)">In control</span>
+      <span class="mood" style="left:87.5%; top:calc(26% + 14px)">Calm and organised</span>
+    </div>
 
-<section aria-labelledby="feel-cap" class="feel">
-  <p class="feel-cap" id="feel-cap">How Lena feels, stage by stage</p>
-  <svg viewBox="0 0 1200 110" role="img" aria-label="Line rising from curious and wary at stage 1 to trusting at stage 4">
-    <polyline points="150,88 450,66 750,46 1050,26" fill="none" stroke="var(--keep)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="150" cy="88" r="9" fill="var(--keep)"/>
-    <circle cx="450" cy="66" r="9" fill="var(--keep)"/>
-    <circle cx="750" cy="46" r="9" fill="var(--keep)"/>
-    <circle cx="1050" cy="26" r="9" fill="var(--keep)"/>
-  </svg>
-</section>
+    <div class="stages">
+      <article class="stage">
+        <h2><span>1</span>Join and trust</h2>
+        <div class="row">
+          <p class="label">User action</p>
+          <p>Adds card to Apple Pay, sees issuer, fees, SCHUFA impact <span class="to">&rarr;</span> trusts it first</p>
+        </div>
+        <div class="row">
+          <p class="label">Internal state</p>
+          <p>Cautious about a new brand <span class="to">&rarr;</span> clear answers turn doubt into confidence</p>
+        </div>
+        <div class="row pain">
+          <p class="label">Pain point addressed</p>
+          <p>Unknown issuer and SCHUFA fear <span class="to">&rarr;</span> open answers before any bank link</p>
+        </div>
+      </article>
 
-<ol class="stages">
+      <article class="stage">
+        <h2><span>2</span>Shop anywhere</h2>
+        <div class="row">
+          <p class="label">User action</p>
+          <p>Taps card online, picks pay-later per purchase <span class="to">&rarr;</span> Riverty is always available</p>
+        </div>
+        <div class="row">
+          <p class="label">Internal state</p>
+          <p>Relaxed, no hunting for options <span class="to">&rarr;</span> stops switching providers</p>
+        </div>
+        <div class="row pain">
+          <p class="label">Pain point addressed</p>
+          <p>Riverty missing at checkout <span class="to">&rarr;</span> no fallback to Klarna, PayPal, or debit</p>
+        </div>
+      </article>
 
-  <li class="stage">
-    <div class="stage-head"><span class="node">1</span><h2>Activate the card</h2></div>
-    <div class="block ab">
-      <h3>User action</h3>
-      <p><span class="a">Adds card to phone wallet</span><span class="b">carries Riverty beyond partner checkouts.</span></p>
-    </div>
-    <div class="block">
-      <h3>Internal state</h3>
-      <p class="state">Curious but cautious, wary of "debt with a nicer name."</p>
-      <div class="pips" aria-label="Confidence 1 of 4"><i class="on"></i><i></i><i></i><i></i></div>
-    </div>
-    <div class="block pain ab">
-      <h3>Pain point addressed</h3>
-      <p><span class="a">Riverty rarely sought out</span><span class="b">becomes a card she carries and chooses.</span></p>
-    </div>
-  </li>
+      <article class="stage">
+        <h2><span>3</span>Keep or return</h2>
+        <div class="row">
+          <p class="label">User action</p>
+          <p>Starts a return in the app <span class="to">&rarr;</span> payment pauses until the merchant confirms</p>
+        </div>
+        <div class="row">
+          <p class="label">Internal state</p>
+          <p>In control, no chasing refunds <span class="to">&rarr;</span> orders with confidence</p>
+        </div>
+        <div class="row pain">
+          <p class="label">Pain point addressed</p>
+          <p>Unclear return timing and refund waits <span class="to">&rarr;</span> invoice updates right away</p>
+        </div>
+      </article>
 
-  <li class="stage">
-    <div class="stage-head"><span class="node">2</span><h2>Pay anywhere</h2></div>
-    <div class="block ab">
-      <h3>User action</h3>
-      <p><span class="a">Taps phone at the till or any non-partner shop</span><span class="b">no money leaves her account yet.</span></p>
+      <article class="stage">
+        <h2><span>4</span>See and settle</h2>
+        <div class="row">
+          <p class="label">User action</p>
+          <p>Checks one view of dues, autopays small amounts <span class="to">&rarr;</span> never misses dates</p>
+        </div>
+        <div class="row">
+          <p class="label">Internal state</p>
+          <p>Calm and organised <span class="to">&rarr;</span> Riverty becomes her routine, not a fallback</p>
+        </div>
+        <div class="row pain">
+          <p class="label">Pain point addressed</p>
+          <p>Payments scattered across apps <span class="to">&rarr;</span> one overview, reminders, no reminder fees</p>
+        </div>
+      </article>
     </div>
-    <div class="block">
-      <h3>Internal state</h3>
-      <p class="state">Relieved and in control, with no scramble for a fallback card.</p>
-      <div class="pips" aria-label="Confidence 2 of 4"><i class="on"></i><i class="on"></i><i></i><i></i></div>
-    </div>
-    <div class="block pain ab">
-      <h3>Pain point addressed</h3>
-      <p><span class="a">Debit card used at the till</span><span class="b">pay-after control survives outside partner checkouts.</span></p>
-    </div>
-  </li>
+  </section>
 
-  <li class="stage">
-    <div class="stage-head"><span class="node">3</span><h2>Decide</h2></div>
-    <div class="block ab">
-      <h3>User action</h3>
-      <p><span class="a">Opens one view of dues and return deadlines</span><span class="b">decides keep or return calmly.</span></p>
+  <section class="edge" aria-label="Competitive advantages over the manual workaround">
+    <h3>Three advantages over today's manual workaround</h3>
+    <div class="adv">
+      <div><b>One place for dues and returns</b><span>Replaces scattered apps, notes and reminders.</span></div>
+      <div><b>"Decide first" works everywhere she shops</b><span>No switching providers, or paying upfront and waiting.</span></div>
+      <div><b>Rewards route back to partner merchants</b><span>A reason to stay without competing with merchants.</span></div>
     </div>
-    <div class="block">
-      <h3>Internal state</h3>
-      <p class="state">Calm and confident, with no deadline anxiety.</p>
-      <div class="pips" aria-label="Confidence 3 of 4"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
-    </div>
-    <div class="block pain ab">
-      <h3>Pain point addressed</h3>
-      <p><span class="a">Return windows tracked by hand</span><span class="b">countdown and dues visible in one place.</span></p>
-    </div>
-  </li>
+  </section>
 
-  <li class="stage">
-    <div class="stage-head"><span class="node">4</span><h2>Settle up</h2></div>
-    <div class="block ab">
-      <h3>User action</h3>
-      <p><span class="a">Pays only for kept items; sees refunds reflected</span><span class="b">never wonders what she owes.</span></p>
-    </div>
-    <div class="block">
-      <h3>Internal state</h3>
-      <p class="state">Trusting. Riverty feels like hers, not just a checkout button.</p>
-      <div class="pips" aria-label="Confidence 4 of 4"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
-    </div>
-    <div class="block pain ab">
-      <h3>Pain point addressed</h3>
-      <p><span class="a">Doubt about what is owed after a return</span><span class="b">clear refund and balance status.</span></p>
-    </div>
-    <div class="block extra ab">
-      <h3>Merchant guardrail</h3>
-      <p><span class="a">Offers route spend to partner merchants</span><span class="b">merchants gain from the card.</span></p>
-    </div>
-  </li>
-
-</ol>
-
-<section class="guardrail" aria-labelledby="g-h">
-  <h2 id="g-h">Merchant-first guardrail</h2>
-  <p>Riverty stays the default at partner checkouts, and card spend is routed toward partner merchants. If the card ever pulls customers away from them, it is stopped. The merchant benefit is still a hypothesis, so it is the first thing to test with real merchants.</p>
-</section>
-
-<section class="adv" aria-labelledby="adv-h">
-  <h2 id="adv-h">Three advantages over the manual workaround</h2>
-  <ol>
-    <li>
-      <h3>Control everywhere</h3>
-      <p class="ab"><span class="a">Pays later in stores and online</span><span class="b">no upfront debit charge, no return-window guesswork.</span></p>
-    </li>
-    <li>
-      <h3>Clarity without spreadsheets</h3>
-      <p class="ab"><span class="a">One view replaces receipt dates and Excel sheets</span><span class="b">fewer missed payments on Riverty dues.</span></p>
-    </li>
-    <li>
-      <h3>A relationship Riverty owns</h3>
-      <p class="ab"><span class="a">She carries and chooses the card</span><span class="b">habit builds on Riverty, with spend routed to partners.</span></p>
-    </li>
-  </ol>
-</section>
-
-<footer>
-  <strong>Read before presenting</strong>
-  <ul>
-    <li>Built from AI-generated interviews and a brief that names Lena. Every stage is a hypothesis to test with real Riverty users.</li>
-    <li>The one view covers the Riverty card only, not Klarna or PayPal balances.</li>
-    <li>The brief does not say Riverty holds a banking licence. It says Riverty holds a Mastercard principal membership, with Paymentology as issuer processor.</li>
-    <li>Verify the PayPal in-store and Amazon.de claims, Klarna's card model and the 20 November 2026 consumer credit date before using them.</li>
-  </ul>
-</footer>
-
+  <div class="notes">
+    <p>Online first: in-store tap-to-pay would follow in a later phase, in line with the risk team's proposal to avoid early in-store declines.</p>
+    <p>Preconditions to confirm: Risk and Legal must confirm the real SCHUFA impact, and the return pause in stage 3 depends on card-return handling that is not yet scoped.</p>
+    <p>The third advantage is a hypothesis: merchant-funded rewards and the merchant benefit are untested.</p>
+  </div>
 </div>
 </body>
 </html>
