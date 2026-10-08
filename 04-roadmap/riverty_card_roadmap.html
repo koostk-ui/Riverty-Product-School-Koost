@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverty Card pilot roadmap</title>
+<style>
+  :root {
+    --bg: #F2F1EE;
+    --panel: #FBFAF8;
+    --ink: #262626;
+    --muted: #66665F;
+    --line: #D6D4CE;
+    --green: #4A7A3C;
+    --qw-fg: #2F5F25;  --qw-bg: #E3EBDD;
+    --mp-fg: #2B4A86;  --mp-bg: #E1E8F4;
+    --fi-fg: #6B5A1F;  --fi-bg: #F1EAD3;
+    --ns-fg: #55554F;  --ns-bg: #E7E5DF;
+    --focus: #2B4A86;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1C1C1B;
+      --panel: #262625;
+      --ink: #EDEBE6;
+      --muted: #A5A39B;
+      --line: #3D3D3A;
+      --green: #8DBB7C;
+      --qw-fg: #BCDCAE;  --qw-bg: #2B3B26;
+      --mp-fg: #B5C8EE;  --mp-bg: #27324B;
+      --fi-fg: #E3D49A;  --fi-bg: #3F3921;
+      --ns-fg: #C9C7BF;  --ns-bg: #3A3A37;
+      --focus: #B5C8EE;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    padding: 36px 28px 56px;
+    color: var(--ink);
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .page { max-width: 1280px; margin: 0 auto; }
+  button { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  header { margin-bottom: 24px; }
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .mark {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: var(--green);
+    position: relative;
+  }
+  .mark::after {
+    content: ""; position: absolute; left: 7px; top: 7px;
+    width: 12px; height: 12px;
+    border-top: 3px solid var(--panel); border-left: 3px solid var(--panel);
+  }
+  .brand span { font-weight: 600; letter-spacing: 0.02em; }
+  h1 {
+    margin: 0 0 8px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 34px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  .sub { margin: 0; color: var(--muted); max-width: 760px; }
+  .meta { margin: 12px 0 0; font-size: 13.5px; color: var(--muted); }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  .toolbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    margin: 22px 0 20px;
+  }
+  .toolbar .label { font-size: 13px; color: var(--muted); margin-right: 2px; }
+  .chip {
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+    cursor: pointer;
+    font-size: 13.5px;
+  }
+  .chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .chip .n { color: var(--muted); margin-left: 4px; }
+  .chip[aria-pressed="true"] .n { color: inherit; opacity: 0.75; }
+  .spacer { flex: 1; }
+  .linkbtn {
+    padding: 6px 10px; border: 0; background: none; cursor: pointer;
+    text-decoration: underline; text-underline-offset: 3px; font-size: 13.5px;
+  }
+
+  .lanes { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 20px; align-items: start; }
+  .lane {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px 16px 18px;
+  }
+  .lane-head { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .lane-head h2 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 1.2;
+  }
+  .lane-head p { margin: 2px 0 0; font-size: 13.5px; color: var(--muted); }
+  .lane-head .tot { margin-top: 6px; font-size: 12.5px; color: var(--muted); }
+  .cards { display: grid; gap: 12px; }
+  .empty { margin: 0; padding: 14px 0 4px; color: var(--muted); font-size: 14px; }
+
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 13px 12px;
+  }
+  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .nr { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 12.5px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .badge i { width: 8px; height: 8px; background: currentColor; display: inline-block; }
+  .q-qw { color: var(--qw-fg); background: var(--qw-bg); }
+  .q-qw i { border-radius: 50%; }
+  .q-mp { color: var(--mp-fg); background: var(--mp-bg); }
+  .q-mp i { transform: rotate(45deg); }
+  .q-fi { color: var(--fi-fg); background: var(--fi-bg); }
+  .q-fi i { border-radius: 2px; }
+  .q-ns { color: var(--ns-fg); background: var(--ns-bg); }
+  .q-ns i { height: 2px; width: 9px; }
+
+  .card h3 { margin: 0 0 6px; font-size: 16px; font-weight: 600; line-height: 1.3; }
+  .why { margin: 0; font-size: 14px; color: var(--muted); }
+  .why b { color: var(--ink); font-weight: 600; }
+  .scores { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 10px; font-size: 12.5px; color: var(--muted); }
+  .scores span { display: inline-flex; align-items: center; gap: 6px; }
+  .pips { display: inline-flex; gap: 2px; }
+  .pips i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); display: block; }
+  .pips i.on { background: var(--ink); }
+  .toggle {
+    margin-top: 10px; padding: 0; border: 0; background: none; cursor: pointer;
+    font-size: 13px; color: var(--ink); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .more { margin: 8px 0 0; padding-top: 8px; border-top: 1px dashed var(--line); font-size: 14px; }
+  .more[hidden] { display: none; }
+  .more b { font-weight: 600; }
+
+  .cut { margin-top: 28px; }
+  .cut h2 {
+    margin: 0 0 4px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 24px;
+  }
+  .cut > p { margin: 0 0 14px; color: var(--muted); font-size: 14px; max-width: 780px; }
+  .cutgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 12px; }
+  .cutgrid .card { background: var(--panel); }
+  .cutgrid h3 { text-decoration: line-through; text-decoration-thickness: 1px; text-decoration-color: var(--muted); }
+
+  .foot { margin-top: 26px; font-size: 13px; color: var(--muted); max-width: 820px; }
+  .foot p { margin: 0 0 6px; }
+
+  @media (max-width: 960px) {
+    body { padding: 22px 14px 40px; }
+    h1 { font-size: 28px; }
+    .lanes { grid-template-columns: 1fr; }
+    .spacer { display: none; }
+  }
+  @media print {
+    html, body { background: #fff; }
+    .toolbar { display: none; }
+    .more[hidden] { display: block; }
+    .toggle { display: none; }
+    .card { break-inside: avoid; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand"><div class="mark" aria-hidden="true"></div><span>Riverty</span></div>
+    <h1>Riverty Card pilot roadmap</h1>
+    <p class="sub">What we build first to test whether Lena keeps purchases inside Riverty instead of switching to Klarna, PayPal or a debit card.</p>
+    <p class="meta"><b>Team:</b> 3 engineers + 1 designer &nbsp;&middot;&nbsp; <b>Primary metric:</b> off-network card transactions per active cardholder per month</p>
+  </header>
+
+  <div class="toolbar" role="group" aria-label="Filter by quadrant">
+    <span class="label">Show</span>
+    <div id="chips" style="display:contents"></div>
+    <span class="spacer"></span>
+    <button class="linkbtn" id="expandAll" type="button">Expand all</button>
+  </div>
+
+  <main>
+    <div class="lanes" id="lanes"></div>
+
+    <section class="cut" aria-labelledby="cut-h">
+      <h2 id="cut-h">Cut list</h2>
+      <p>Not in this pilot. Items with scores were rated and dropped. Items marked "Not scored" were excluded on the 2023 research before scoring.</p>
+      <div class="cutgrid" id="cutgrid"></div>
+    </section>
+  </main>
+
+  <div class="foot">
+    <p>Value (1 to 5) is impact on the primary metric. Effort (1 to 5) runs from days of engineering to months. Both are relative judgements and have not yet been sized by engineering.</p>
+    <p>Dependencies to confirm: Apple wallet approval lead time (NR2), Risk and Finance rules for the return pause (NR4), reuse of the B2B limit capability (NR8), SCHUFA facts from Risk and Legal (NR9).</p>
+    <p>Research evidence is from 2023 interviews (n=15) on a virtual card concept, so treat it as directional.</p>
+  </div>
+</div>
+
+<script>
+var QUADS = {
+  "Quick Win":     { cls: "q-qw", label: "Quick Win" },
+  "Major Project": { cls: "q-mp", label: "Major Project" },
+  "Fill-In":       { cls: "q-fi", label: "Fill-In" },
+  "Not scored":    { cls: "q-ns", label: "Not scored" }
+};
+
+var LANES = [
+  { key: "NOW",   title: "NOW",   sub: "3-week sprint" },
+  { key: "NEXT",  title: "NEXT",  sub: "Following 1-2 sprints" },
+  { key: "LATER", title: "LATER", sub: "Backlog" }
+];
+
+var FEATURES = [
+  { nr: 1,  lane: "NOW", name: "Frictionless onboarding",
+    what: "Links her bank with Face ID or Touch ID and gives a fast approval decision.",
+    value: 4, effort: 3, quad: "Quick Win",
+    why: "No cardholders means no metric, and users said they'd abandon setup without biometric login (UXR-28, deck MVP)." },
+  { nr: 2,  lane: "NOW", name: "Card in Apple Pay and Google Pay",
+    what: "Adds the virtual Mastercard to her phone wallet so she can pay at merchants outside the Riverty network.",
+    value: 5, effort: 3, quad: "Quick Win",
+    why: "It is the precondition for every off-network purchase, though Apple's approval lead time is unknown." },
+  { nr: 3,  lane: "NOW", name: "Pay-after-you-keep invoice",
+    what: "Creates a per-purchase invoice with a due date, so money leaves her account only after she has decided to keep the item.",
+    value: 5, effort: 4, quad: "Major Project",
+    why: "It is the core promise and the heaviest must-have, since production invoicing and settlement still need building." },
+  { nr: 4,  lane: "NOW", name: "Return pause",
+    what: "Freezes the due date as soon as she reports a return, using the existing two-way return notifications.",
+    value: 4, effort: 3, quad: "Quick Win",
+    why: "It protects her at the moment BNPL is for (UXR-17) but needs Risk and Finance rules on pause length and abuse." },
+  { nr: 7,  lane: "NOW", name: "One view of what's due",
+    what: "Lists every card purchase and open invoice with due dates, updated by instant purchase alerts.",
+    value: 4, effort: 2, quad: "Quick Win",
+    why: "It directly answers \"losing track\" (UXR-09, 12, 23), but only for Riverty purchases, not her Klarna or PayPal balances." },
+  { nr: 8,  lane: "NOW", name: "Always-visible remaining limit",
+    what: "Shows her total and remaining limit so she knows a purchase will go through.",
+    value: 4, effort: 2, quad: "Quick Win",
+    why: "It prevents the declines that would end off-network use, assuming the B2B limit capability carries over." },
+  { nr: 9,  lane: "NOW", name: "Trust panel",
+    what: "States the issuer, costs and SCHUFA effect in plain language before sign-up.",
+    value: 4, effort: 2, quad: "Quick Win",
+    why: "SCHUFA fear is the top barrier (UXR-08, 26) and a named guardrail, but Risk and Legal must supply the facts." },
+  { nr: 10, lane: "NOW", name: "\"What would you have used?\" prompt",
+    what: "Asks after each off-network purchase what she would have used otherwise (Klarna, PayPal, debit card, nothing).",
+    value: 3, effort: 1, quad: "Fill-In",
+    why: "It is the only way to read the hypothesis, since nothing else shows that off-network use displaces competitors." },
+  { nr: 6,  lane: "NEXT", name: "Keep-or-return nudge",
+    what: "Reminds her before each due date and offers \"Keep and pay now\" or \"Start return\" in one tap.",
+    value: 4, effort: 2, quad: "Quick Win",
+    why: "It turns the due date into her decision moment and covers the on-time-payments guardrail (UXR-09, 22). This is my idea, not from the research." },
+  { nr: 5,  lane: "LATER", name: "Return and refund tracker",
+    what: "Shows each return's status and updates the invoice when it is confirmed.",
+    value: 3, effort: 2, quad: "Fill-In",
+    why: "It answers the unclear-timing complaint cheaply but doesn't make her buy off-network, and the return pause already covers the basics." },
+
+  { nr: 11, lane: "CUT", name: "Autopay for small amounts",
+    what: "Pays purchases under a threshold she sets (most said 50 or 100 euros) directly from her bank account.",
+    value: 3, effort: 3, quad: "Fill-In",
+    why: "Rated 2.3 to 2.4 in 2023 and it needs a direct-debit mandate flow, while the keep-or-return nudge covers the on-time-payments guardrail more cheaply." },
+  { nr: 12, lane: "CUT", name: "Full lost-phone safeguards",
+    what: "Offers single-use card numbers for online purchases and blocking the card from another device.",
+    value: 2, effort: 3, quad: "Fill-In",
+    why: "The worry is real (UXR-27) but doesn't move off-network use in a pilot, and the standard block-card control ships regardless." },
+  { nr: 13, lane: "CUT", name: "Cashback at partner merchants",
+    what: "Pays her money back when she shops with selected merchants, which she can use against an invoice or take to her bank account.",
+    value: null, effort: null, quad: "Not scored",
+    why: "The top-rated feature in 2023 (1.5), but it needs merchant funding and a partner network that doesn't exist, and interchange of about 0.1% can't pay for it, so it is a separate hypothesis." },
+  { nr: 14, lane: "CUT", name: "Physical card",
+    what: "Adds a plastic card as a backup for empty or lost phones and for travel.",
+    value: null, effort: null, quad: "Not scored",
+    why: "Rated 2.5 in 2023, two thirds weren't willing to pay the 2.50 euro monthly fee, and 6 of 15 didn't need one." },
+  { nr: 15, lane: "CUT", name: "Consumer credit",
+    what: "Offers a loan or revolving credit through the card.",
+    value: null, effort: null, quad: "Not scored",
+    why: "Devalidated in 2023, as 9 of 10 would not use it because they don't want debt, and it needs its own regulatory approval." },
+  { nr: 16, lane: "CUT", name: "Currency converter and rate lock",
+    what: "Shows the euro amount before paying abroad and lets her lock an exchange rate for a fee.",
+    value: null, effort: null, quad: "Not scored",
+    why: "Rated 2.2 and partially devalidated, a nice-to-have used mainly on holiday and unrelated to her friction." },
+  { nr: 17, lane: "CUT", name: "Peer-to-peer payments",
+    what: "Sends money to a friend's Riverty card by phone number from a pre-funded balance.",
+    value: null, effort: null, quad: "Not scored",
+    why: "Validated at 1.9 but it needs both people on the card, users wanted it funded from their bank account, and it doesn't touch her friction." }
+];
+
+var state = { filter: "All", openIds: {} };
+
+function el(tag, cls, text) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+
+function pips(n) {
+  var wrap = el("span", "pips");
+  wrap.setAttribute("aria-hidden", "true");
+  for (var i = 1; i <= 5; i++) {
+    var p = document.createElement("i");
+    if (i <= n) p.className = "on";
+    wrap.appendChild(p);
+  }
+  return wrap;
+}
+
+function buildCard(f) {
+  var q = QUADS[f.quad];
+  var card = el("article", "card");
+  var top = el("div", "card-top");
+  top.appendChild(el("span", "nr", "NR" + f.nr));
+  var badge = el("span", "badge " + q.cls);
+  badge.appendChild(document.createElement("i"));
+  badge.appendChild(document.createTextNode(q.label));
+  top.appendChild(badge);
+  card.appendChild(top);
+
+  card.appendChild(el("h3", "", f.name));
+  var why = el("p", "why");
+  why.textContent = f.why;
+  card.appendChild(why);
+
+  var scores = el("div", "scores");
+  if (f.value !== null) {
+    var v = el("span"); v.appendChild(document.createTextNode("Value " + f.value)); v.appendChild(pips(f.value));
+    var e = el("span"); e.appendChild(document.createTextNode("Effort " + f.effort)); e.appendChild(pips(f.effort));
+    scores.appendChild(v); scores.appendChild(e);
+  } else {
+    scores.appendChild(el("span", "", "Value and effort: not scored"));
+  }
+  card.appendChild(scores);
+
+  var more = el("p", "more");
+  var b = el("b", "", "What it does: ");
+  more.appendChild(b);
+  more.appendChild(document.createTextNode(f.what));
+  var open = !!state.openIds[f.nr];
+  more.hidden = !open;
+  var id = "more-" + f.nr;
+  more.id = id;
+
+  var btn = el("button", "toggle", open ? "Hide details" : "What it does");
+  btn.type = "button";
+  btn.setAttribute("aria-expanded", String(open));
+  btn.setAttribute("aria-controls", id);
+  btn.addEventListener("click", function () {
+    var nowOpen = more.hidden;
+    more.hidden = !nowOpen;
+    state.openIds[f.nr] = nowOpen;
+    btn.textContent = nowOpen ? "Hide details" : "What it does";
+    btn.setAttribute("aria-expanded", String(nowOpen));
+    syncExpandAll();
+  });
+  card.appendChild(btn);
+  card.appendChild(more);
+  return card;
+}
+
+function visible(f) {
+  return state.filter === "All" || f.quad === state.filter;
+}
+
+function renderLanes() {
+  var root = document.getElementById("lanes");
+  root.textContent = "";
+  LANES.forEach(function (lane) {
+    var all = FEATURES.filter(function (f) { return f.lane === lane.key; });
+    var shown = all.filter(visible);
+    var sec = el("section", "lane");
+    sec.setAttribute("aria-labelledby", "lane-" + lane.key);
+    var head = el("div", "lane-head");
+    var h = el("h2", "", lane.title); h.id = "lane-" + lane.key;
+    head.appendChild(h);
+    head.appendChild(el("p", "", lane.sub));
+    var effort = all.reduce(function (s, f) { return s + (f.effort || 0); }, 0);
+    head.appendChild(el("p", "tot", all.length + (all.length === 1 ? " feature" : " features") + " \u00b7 " + effort + " effort points (relative)"));
+    sec.appendChild(head);
+    var cards = el("div", "cards");
+    if (shown.length === 0) {
+      cards.appendChild(el("p", "empty", all.length === 0 ? "Nothing planned." : "No cards match this filter."));
+    } else {
+      shown.forEach(function (f) { cards.appendChild(buildCard(f)); });
+    }
+    sec.appendChild(cards);
+    root.appendChild(sec);
+  });
+}
+
+function renderCut() {
+  var root = document.getElementById("cutgrid");
+  root.textContent = "";
+  FEATURES.filter(function (f) { return f.lane === "CUT"; }).forEach(function (f) {
+    root.appendChild(buildCard(f));
+  });
+}
+
+function renderChips() {
+  var root = document.getElementById("chips");
+  root.textContent = "";
+  var roadmap = FEATURES.filter(function (f) { return f.lane !== "CUT"; });
+  var options = ["All", "Quick Win", "Major Project", "Fill-In"];
+  options.forEach(function (opt) {
+    var n = opt === "All" ? roadmap.length : roadmap.filter(function (f) { return f.quad === opt; }).length;
+    var b = el("button", "chip");
+    b.type = "button";
+    b.setAttribute("aria-pressed", String(state.filter === opt));
+    b.appendChild(document.createTextNode(opt));
+    b.appendChild(el("span", "n", String(n)));
+    b.addEventListener("click", function () {
+      state.filter = opt;
+      renderChips();
+      renderLanes();
+      syncExpandAll();
+    });
+    root.appendChild(b);
+  });
+}
+
+function allOpen() {
+  return FEATURES.every(function (f) { return state.openIds[f.nr]; });
+}
+
+function syncExpandAll() {
+  document.getElementById("expandAll").textContent = allOpen() ? "Collapse all" : "Expand all";
+}
+
+document.getElementById("expandAll").addEventListener("click", function () {
+  var target = !allOpen();
+  FEATURES.forEach(function (f) { state.openIds[f.nr] = target; });
+  renderLanes();
+  renderCut();
+  syncExpandAll();
+});
+
+renderChips();
+renderLanes();
+renderCut();
+syncExpandAll();
+</script>
+</body>
+</html>
