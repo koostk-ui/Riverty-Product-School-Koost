@@ -116,16 +116,7 @@ Day 56
   or stop.
 
 ## Success Metrics
-- **Metrics:** HOW WE'LL KNOW IT WORKED
-
-Goal: Conversion. An eligible heavy user takes up the Riverty Card and
-makes a first purchase outside the Riverty network.
-All thresholds are proposals, to be agreed before launch and recorded
-with the decision rule.
-
-SUCCESS METRICS
-
-1. Activation rate (primary, read at day 14)
+- **Metrics:** 1. Activation rate (primary, read at day 14)
    What: share of offered, eligible users who activate the card.
    Why it matches the goal: it is the conversion event itself.
    Target: at least 5% = on track; 2% to under 5% = extend;
@@ -160,12 +151,5 @@ GUARDRAIL (must hold for any success call)
   no more than 1 percentage point below the holdout.
 - Also read: on-time payments, complaints on SCHUFA, fees and declines,
   and contribution margin per user.
-
-HOW IT'S READ
-- Day 14: metric 1 and the pause rule on the guardrail.
-- Day 42: metric 2 and the displacement answers.
-- Day 56: metric 3 and all guardrails, then the ship, extend or stop
-  decision per the recorded rule.
-- Analyse by assignment (all offered vs. all holdout) for metric 3.
-- **Bad signal to watch for:** DO NOT JUDGE SUCCESS ON - Opens, clicks or impressions. They show reach, not conversion, and   are for diagnosing exposure only. - Total card sign-ups without activation or first off-network use. - Brand preference (6% in the brief). It is a longer-term outcome,   not a launch result.
+- **Bad signal to watch for:** activation looks fine, but the card isn’t used where Riverty wasn’t offered  What it looks like: activation is at or above the 5% target, but under 10% of activated users make an off-network purchase, or the displacement answers show most purchases would have stayed with Riverty or never happened.
 - **Likely post-launch decision:** Iterate - Activation 2 to under 5%, or off-network use 10 to 49%, or displacement below 60%, or a positive but non-significant volume effect, with guardrails holding
